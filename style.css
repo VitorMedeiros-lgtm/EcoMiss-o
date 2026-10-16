@@ -1,0 +1,761 @@
+/* ========================================
+   CONFIGURAÇÕES GERAIS
+======================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    background: #8bd2e7 url("image.png") center / cover no-repeat;
+}
+
+button,
+input {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    border-radius: 12px;
+    padding: 12px 22px;
+    font-weight: bold;
+    color: white;
+    background: #168b42;
+    box-shadow: 0 5px 0 #08612b;
+    transition: transform 0.15s;
+}
+
+button:hover {
+    transform: translateY(-2px);
+}
+
+button:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #08612b;
+}
+
+button:disabled {
+    cursor: not-allowed;
+    opacity: 0.65;
+    transform: none;
+}
+
+.escondida {
+    display: none !important;
+}
+
+.jogo {
+    width: 100%;
+    min-height: 100vh;
+}
+
+
+/* ========================================
+   TELAS PRINCIPAIS
+======================================== */
+
+.tela {
+    width: 100%;
+    min-height: 100vh;
+
+    background-image: url("image.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 25px;
+}
+
+
+/* ========================================
+   PAINEL INICIAL
+======================================== */
+
+.painel-inicial,
+.painel-regras {
+    width: min(500px, 100%);
+    padding: 30px;
+
+    background: rgba(255, 255, 235, 0.95);
+
+    border: 4px solid #659b32;
+    border-radius: 22px;
+
+    text-align: center;
+
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+}
+
+.painel-inicial h1 {
+    margin-top: 0;
+    font-size: clamp(36px, 6vw, 58px);
+    color: #168b42;
+    text-shadow: 2px 3px #c9e9a3;
+}
+
+.subtitulo {
+    font-size: 20px;
+    color: #315d2b;
+    font-weight: bold;
+}
+
+.painel-inicial label {
+    display: block;
+    margin: 25px 0 10px;
+    font-weight: bold;
+}
+
+.painel-inicial input {
+    width: 100%;
+    padding: 14px;
+
+    border: 2px solid #9bbd8c;
+    border-radius: 10px;
+
+    outline: none;
+}
+
+.painel-inicial input:focus {
+    border-color: #168b42;
+}
+
+.painel-inicial button {
+    width: 100%;
+    margin-top: 18px;
+}
+
+#botao-regras,
+#botao-ranking {
+    background: #1475b8;
+    box-shadow: 0 5px 0 #084c7b;
+}
+
+#erro-nome {
+    color: #b51f1f;
+    font-weight: bold;
+}
+
+
+/* ========================================
+   PAINEL DE REGRAS
+======================================== */
+
+.painel-regras {
+    max-width: 650px;
+    text-align: left;
+}
+
+.painel-regras h1 {
+    text-align: center;
+    color: #168b42;
+}
+
+.painel-regras h3 {
+    color: #176f3b;
+    margin-bottom: 5px;
+}
+
+.painel-regras p {
+    line-height: 1.6;
+}
+
+.painel-regras button {
+    display: block;
+    margin: 25px auto 0;
+}
+
+
+/* ========================================
+   RANKING
+======================================== */
+
+#tela-ranking {
+    text-align: center;
+}
+
+#tela-ranking h1 {
+    color: #168b42;
+}
+
+#lista-ranking {
+    width: min(500px, 100%);
+    margin: 20px auto;
+    padding: 0;
+
+    list-style-position: inside;
+    text-align: left;
+}
+
+#lista-ranking li {
+    margin: 10px 0;
+    padding: 12px;
+
+    background: rgba(255, 255, 235, 0.95);
+    border: 2px solid #659b32;
+    border-radius: 10px;
+
+    font-weight: bold;
+}
+
+
+/* ========================================
+   ÁREA PRINCIPAL DO JOGO
+======================================== */
+
+#tela-jogo {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    padding: 0;
+
+    background-position: center;
+}
+
+.cabecalho-jogo {
+    position: relative;
+    z-index: 10;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+
+    gap: 12px;
+    padding: 18px 25px;
+
+    color: white;
+    font-size: clamp(13px, 2vw, 22px);
+    font-weight: bold;
+
+    text-shadow: 2px 2px 3px #333;
+}
+
+.fase {
+    width: 100%;
+    min-height: calc(100vh - 65px);
+
+    text-align: center;
+    position: relative;
+
+    padding: 10px 10px 25px;
+}
+
+.fase h2 {
+    color: white;
+    text-shadow: 2px 2px 4px #234;
+    margin: 5px 0 8px;
+}
+
+.instrucoes {
+    color: white;
+    font-weight: bold;
+    text-shadow: 1px 2px 3px #234;
+}
+
+
+/* ========================================
+   FASE 1 — QUEDA DOS RESÍDUOS
+======================================== */
+
+#area-queda {
+    position: absolute;
+
+    inset: 75px 0 175px;
+
+    /*
+       Permite arrastar os resíduos
+       até a região das lixeiras.
+    */
+
+    overflow: visible;
+
+    z-index: 2;
+    pointer-events: none;
+}
+
+.residuo {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 55px;
+    height: 55px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 38px;
+
+    cursor: grab;
+    user-select: none;
+    touch-action: none;
+
+    pointer-events: auto;
+
+    filter: drop-shadow(
+        2px 4px 2px rgba(0, 0, 0, 0.25)
+    );
+}
+
+.residuo:active {
+    cursor: grabbing;
+    z-index: 100;
+    transform: scale(1.15);
+}
+
+
+/* ========================================
+   LIXEIRAS
+======================================== */
+
+.area-lixeiras {
+    position: absolute;
+
+    bottom: 18px;
+    left: 0;
+    right: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+
+    gap: clamp(8px, 3vw, 30px);
+
+    padding: 0 10px;
+
+    z-index: 5;
+}
+
+.lixeira {
+    position: relative;
+
+    width: clamp(60px, 11vw, 105px);
+    height: clamp(95px, 17vh, 140px);
+
+    flex-shrink: 0;
+
+    border: 3px solid #4b482f;
+    border-radius: 10px 10px 15px 15px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    box-shadow:
+        inset 5px 0 7px rgba(255, 255, 255, 0.2),
+        inset -5px 0 7px rgba(0, 0, 0, 0.15),
+        0 5px 4px rgba(0, 0, 0, 0.3);
+}
+
+.tampa {
+    position: absolute;
+
+    top: -10px;
+    left: -7px;
+    right: -7px;
+
+    height: 15px;
+
+    border: 3px solid #4b482f;
+    border-radius: 6px;
+
+    background: inherit;
+}
+
+.simbolo {
+    color: white;
+    font-size: clamp(25px, 4vw, 40px);
+}
+
+.lixeira span {
+    margin-top: 5px;
+
+    font-size: clamp(9px, 1.3vw, 13px);
+    font-weight: bold;
+
+    color: white;
+    text-align: center;
+}
+
+.marrom {
+    background: #79533a;
+}
+
+.amarela {
+    background: #e9d92c;
+}
+
+.azul {
+    background: #1478c8;
+}
+
+.verde {
+    background: #269b48;
+}
+
+/* Lixeira vermelha: plástico */
+
+.vermelha {
+    background: #e53935;
+}
+
+.lixeira.destacada {
+    outline: 5px solid white;
+    transform: translateY(-10px);
+}
+
+
+/* ========================================
+   FASE 2 — JOGO DA MEMÓRIA
+======================================== */
+
+#tabuleiro-memoria {
+    width: min(560px, 95%);
+
+    margin: 25px auto;
+
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+
+    gap: 12px;
+}
+
+.carta {
+    min-width: 0;
+    min-height: 100px;
+
+    padding: 5px;
+
+    font-size: clamp(24px, 5vw, 42px);
+
+    color: white;
+    background: #1676bd;
+
+    border: 3px solid white;
+    border-radius: 12px;
+
+    box-shadow: 0 5px 0 #07518b;
+}
+
+.carta.revelada,
+.carta.encontrada {
+    background: #f6f4db;
+    color: #234;
+}
+
+.carta.encontrada {
+    border-color: #3ba74d;
+}
+
+
+/* ========================================
+   FASE 3 — QUEBRA-CABEÇA DE 16 PEÇAS
+======================================== */
+
+.painel-quebra-cabeca {
+    width: 100%;
+    padding: 10px;
+
+    text-align: center;
+}
+
+.painel-quebra-cabeca h2 {
+    margin-top: 5px;
+}
+
+#tabuleiro-quebra-cabeca {
+    width: min(480px, 94vw);
+    aspect-ratio: 1 / 1;
+
+    margin: 20px auto;
+    padding: 5px;
+
+    display: grid;
+
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-rows: repeat(4, minmax(0, 1fr));
+
+    gap: 4px;
+
+    border: 4px solid white;
+    border-radius: 12px;
+
+    background: rgba(255, 255, 255, 0.85);
+
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25);
+}
+
+/*
+   As imagens de cada peça são definidas
+   pelo JavaScript usando background-image.
+*/
+
+.peca-puzzle {
+    display: block;
+
+    min-width: 0;
+    min-height: 0;
+
+    width: 100%;
+    height: 100%;
+
+    padding: 0;
+
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    border-radius: 3px;
+
+    background-repeat: no-repeat;
+    background-size: 400% 400%;
+
+    box-shadow: none;
+
+    cursor: grab;
+
+    touch-action: manipulation;
+}
+
+.peca-puzzle:hover {
+    transform: scale(0.97);
+}
+
+.peca-puzzle:active {
+    cursor: grabbing;
+}
+
+.peca-puzzle.selecionada {
+    outline: 4px solid #ffeb3b;
+    outline-offset: -4px;
+
+    transform: scale(0.94);
+}
+
+.peca-puzzle.correta {
+    border-color: #36a852;
+}
+
+#pecas-corretas,
+#mensagem-quebra-cabeca {
+    color: white;
+
+    font-weight: bold;
+
+    text-shadow: 1px 2px 3px #234;
+
+    margin: 10px;
+}
+
+
+/* ========================================
+   FASE 4 — QUIZ AMBIENTAL
+======================================== */
+
+#area-quiz {
+    width: min(650px, 94%);
+
+    margin: 25px auto;
+    padding: 25px;
+
+    border: 4px solid #639a37;
+    border-radius: 20px;
+
+    background: rgba(255, 255, 235, 0.96);
+
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+#numero-pergunta {
+    color: #168b42;
+    font-weight: bold;
+}
+
+#pergunta {
+    color: #245d32;
+    line-height: 1.5;
+}
+
+#alternativas {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 12px;
+
+    margin-top: 20px;
+}
+
+#alternativas button {
+    background: #1475b8;
+    box-shadow: 0 4px 0 #084c7b;
+}
+
+#alternativas button:disabled {
+    cursor: default;
+}
+
+#feedback-quiz {
+    min-height: 24px;
+    margin-top: 18px;
+
+    font-weight: bold;
+}
+
+
+/* ========================================
+   TELA FINAL
+======================================== */
+
+#tela-final {
+    text-align: center;
+}
+
+#tela-final h1 {
+    color: #168b42;
+}
+
+#resultado-final {
+    line-height: 1.8;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+#jogar-novamente,
+#voltar-menu {
+    margin: 10px;
+}
+
+
+/* ========================================
+   RESPONSIVIDADE — CELULARES
+======================================== */
+
+@media (max-width: 500px) {
+
+    .tela {
+        padding: 12px;
+    }
+
+    .painel-inicial,
+    .painel-regras {
+        padding: 20px;
+    }
+
+    .cabecalho-jogo {
+        padding: 12px 8px;
+        gap: 5px;
+    }
+
+    .fase {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
+    .area-lixeiras {
+        gap: 7px;
+        padding: 0 5px;
+    }
+
+    .lixeira {
+        width: 61px;
+        height: 95px;
+    }
+
+    .lixeira span {
+        font-size: 9px;
+    }
+
+    .simbolo {
+        font-size: 25px;
+    }
+
+    .residuo {
+        width: 45px;
+        height: 45px;
+        font-size: 32px;
+    }
+
+    #tabuleiro-memoria {
+        gap: 8px;
+    }
+
+    .carta {
+        min-height: 75px;
+        font-size: 28px;
+    }
+
+    #tabuleiro-quebra-cabeca {
+        width: min(94vw, 380px);
+        gap: 2px;
+        padding: 3px;
+    }
+
+    .peca-puzzle {
+        border-width: 1px;
+    }
+
+    #area-quiz {
+        padding: 16px;
+    }
+
+    #alternativas {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    #alternativas button {
+        padding: 12px;
+    }
+
+    #tela-final button {
+        width: 100%;
+        margin: 8px 0;
+    }
+}
+
+
+/* ========================================
+   RESPONSIVIDADE — TELAS PEQUENAS
+======================================== */
+
+@media (max-height: 600px) {
+
+    .cabecalho-jogo {
+        padding: 8px 15px;
+    }
+
+    .fase {
+        min-height: calc(100vh - 45px);
+    }
+
+    .lixeira {
+        height: 85px;
+    }
+
+    #tabuleiro-memoria {
+        margin: 12px auto;
+    }
+
+    .carta {
+        min-height: 65px;
+    }
+
+    #tabuleiro-quebra-cabeca {
+        width: min(55vh, 400px);
+        margin: 10px auto;
+    }
+
+    #area-quiz {
+        margin: 12px auto;
+        padding: 15px;
+    }
+}

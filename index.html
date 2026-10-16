@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoMissão</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <main class="jogo">
+
+        <!-- TELA INICIAL -->
+        <section id="tela-inicial" class="tela">
+
+            <div class="painel-inicial">
+
+                <h1>♻️ EcoMissão</h1>
+                <p class="subtitulo">Seu planeta, sua missão!</p>
+
+                <label for="nome-jogador">Digite seu nome:</label>
+
+                <input
+                    type="text"
+                    id="nome-jogador"
+                    placeholder="Nome do jogador"
+                    maxlength="20"
+                >
+
+                <button id="botao-jogar">JOGAR</button>
+                <button id="botao-regras">COMO JOGAR</button>
+                <button id="botao-ranking">RANKING</button>
+
+                <p id="erro-nome"></p>
+
+            </div>
+
+        </section>
+
+
+        <!-- REGRAS -->
+        <section id="tela-regras" class="tela escondida">
+
+            <div class="painel-regras">
+
+                <h1>📖 Como jogar</h1>
+
+                <h3>♻️ Fase 1 — Chuva de Reciclagem</h3>
+                <p>Arraste os resíduos para as lixeiras correspondentes.</p>
+
+                <h3>🃏 Fase 2 — Memória Ecológica</h3>
+                <p>Encontre os pares de cartas relacionados à reciclagem.</p>
+
+                <h3>🧩 Fase 3 — Quebra-Cabeça Ecológico</h3>
+                <p>Arraste as 16 peças para montar uma imagem sobre reciclagem.</p>
+
+                <h3>❓ Fase 4 — Quiz Ambiental</h3>
+                <p>Responda às perguntas sobre coleta seletiva e meio ambiente.</p>
+
+                <p>🏆 Complete as quatro fases para conquistar a maior pontuação!</p>
+
+                <button id="voltar-inicial">VOLTAR</button>
+
+            </div>
+
+        </section>
+
+
+        <!-- RANKING -->
+        <section id="tela-ranking" class="tela escondida">
+
+            <div class="painel-regras">
+
+                <h1>🏆 Ranking</h1>
+                <ol id="lista-ranking"></ol>
+
+                <button id="voltar-ranking">VOLTAR</button>
+
+            </div>
+
+        </section>
+
+
+        <!-- JOGO -->
+        <section id="tela-jogo" class="tela escondida">
+
+            <header class="cabecalho-jogo">
+
+                <span>JOGADOR: <span id="jogador-atual"></span></span>
+                <span>TEMPO: <span id="tempo">50</span></span>
+                <span>PONTOS: <span id="pontuacao">0</span></span>
+
+            </header>
+
+
+            <!-- FASE 1 -->
+            <div id="fase-1" class="fase">
+
+                <h2>Fase 1 — Chuva de Reciclagem</h2>
+
+                <p class="instrucoes">
+                    Arraste cada resíduo para a lixeira correta!
+                </p>
+
+                <div id="area-queda"></div>
+
+                <div class="area-lixeiras">
+
+                    <div class="lixeira marrom" data-tipo="food">
+                        <div class="tampa"></div>
+                        <div class="simbolo">♻</div>
+                        <span>ORGÂNICO</span>
+                    </div>
+
+                    <div class="lixeira amarela" data-tipo="metal">
+                        <div class="tampa"></div>
+                        <div class="simbolo">♻</div>
+                        <span>METAL</span>
+                    </div>
+
+                    <div class="lixeira azul" data-tipo="paper">
+                        <div class="tampa"></div>
+                        <div class="simbolo">♻</div>
+                        <span>PAPEL</span>
+                    </div>
+
+                    <div class="lixeira verde" data-tipo="glass">
+                        <div class="tampa"></div>
+                        <div class="simbolo">♻</div>
+                        <span>VIDRO</span>
+                    </div>
+
+                    <div class="lixeira vermelha" data-tipo="plastic">
+                        <div class="tampa"></div>
+                        <div class="simbolo">♻</div>
+                        <span>PLÁSTICO</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- FASE 2 -->
+            <div id="fase-2" class="fase escondida">
+
+                <h2>Fase 2 — Memória Ecológica</h2>
+                <p class="instrucoes">Encontre os pares de cartas!</p>
+
+                <div id="tabuleiro-memoria"></div>
+
+            </div>
+
+
+            <!-- FASE 3: QUEBRA-CABEÇA -->
+            <div id="fase-3" class="fase escondida">
+
+                <h2>Fase 3 — Quebra-Cabeça Ecológico</h2>
+
+                <p class="instrucoes">
+                    Arraste as peças para montar a imagem!
+                </p>
+
+                <div class="painel-quebra-cabeca">
+
+                    <p>Peças corretas: <span id="pecas-corretas">0</span>/16</p>
+
+                    <div id="tabuleiro-quebra-cabeca"></div>
+
+                </div>
+
+                <p id="mensagem-quebra-cabeca"></p>
+
+            </div>
+
+
+            <!-- FASE 4: QUIZ FINAL -->
+            <div id="fase-4" class="fase escondida">
+
+                <h2>Fase 4 — Quiz Ambiental</h2>
+
+                <div id="area-quiz">
+
+                    <p id="numero-pergunta"></p>
+                    <h3 id="pergunta"></h3>
+
+                    <div id="alternativas"></div>
+
+                    <p id="feedback-quiz"></p>
+
+                    <button id="proxima-pergunta" class="escondida">
+                        PRÓXIMA PERGUNTA
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- TELA FINAL -->
+        <section id="tela-final" class="tela escondida">
+
+            <div class="painel-regras">
+
+                <h1>🌎 EcoMissão concluída!</h1>
+                <p id="resultado-final"></p>
+
+                <button id="jogar-novamente">JOGAR NOVAMENTE</button>
+                <button id="voltar-menu">MENU INICIAL</button>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
